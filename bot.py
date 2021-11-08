@@ -1,6 +1,7 @@
 from decouple import config
+from telegram.ext import CommandHandler, InlineQueryHandler, Updater
+
 from download import download
-from telegram.ext import CommandHandler, Updater
 
 
 def download_video(update, context):
@@ -14,6 +15,7 @@ def main(token, debug=False, port=80, webhook_url=""):
 
     updater = Updater(token=token)
     updater.dispatcher.add_handler(CommandHandler("download", download_video))
+    updater.dispatcher.add_handler(InlineQueryHandler(download_video))
 
     if debug:
         updater.start_polling()
