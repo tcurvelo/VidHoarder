@@ -10,7 +10,18 @@ def download(url: str):
             data["media_type"] = mimetypes.guess_type(data["filename"])[0]
 
     data = {}
-    with YoutubeDL(params={"progress_hooks": [hook]}) as ydl:
+    with YoutubeDL(
+        params={
+            "progress_hooks": [hook],
+            "outtmpl": "%(id)s.%(ext)s",
+        }
+    ) as ydl:
         data["retcode"] = ydl.download([url])
 
     return data
+
+
+if __name__ == "__main__":
+    import sys
+
+    download(sys.argv[1])
