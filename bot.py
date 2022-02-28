@@ -1,5 +1,4 @@
 import logging
-from urllib.parse import quote, urljoin
 
 from decouple import config
 from telegram.ext import CommandHandler, Updater
@@ -23,7 +22,7 @@ def main(token, debug=False, port=80, webhook_url=""):
     if debug:
         updater.start_polling()
     else:
-        url = urljoin(webhook_url, quote(token))
+        url = "/".join([webhook_url.strip("/"), token])
         print(f"{url=}")
 
         updater.start_webhook(
