@@ -1,7 +1,8 @@
 import logging
 
 from decouple import config
-from telegram.ext import CommandHandler, Updater
+from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
+from telegram.messageentity import MessageEntity
 
 from download import download
 
@@ -9,7 +10,9 @@ logger = logging.getLogger(__name__)
 
 
 def download_video(update, context):
-    for url in context.args:
+    urls = context.args or update.message.text.split()
+    logger.info(urls)
+    for url in urls:
         data = download(url)
         with open(data["filename"], "rb") as video:
             update.message.reply_video(video, quote=True)
@@ -17,7 +20,11 @@ def download_video(update, context):
 
 def main(token, debug=False, port=80, webhook_url=""):
     updater = Updater(token=token)
-    updater.dispatcher.add_handler(CommandHandler("download", download_video))
+    for handler in [
+        CommandHandler("download", download_video),
+        MessageHandler(Filters.entity(MessageEntity.URL), download_video),
+    ]:
+        updater.dispatcher.add_handler(handler)
 
     if debug:
         updater.start_polling()
