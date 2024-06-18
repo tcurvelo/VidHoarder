@@ -40,13 +40,9 @@ def main(token, debug=False, port=80, webhook_url=""):
 
 
 if __name__ == "__main__":
-    kwargs = (
-        dict(debug=debug)
-        if (debug := config("DEBUG", default=False, cast=bool))
-        else dict(
-            port=config("PORT", default=80, cast=int),
-            webhook_url=config("WEBHOOK_URL"),
-        )
+    kwargs = dict(
+        debug=config("DEBUG", default=False, cast=bool),
+        port=config("PORT", default=3000, cast=int),
+        webhook_url=config("WEBHOOK_URL", default=""),
     )
-    print(f"{kwargs=}")
     main(token=config("TOKEN"), **kwargs)
