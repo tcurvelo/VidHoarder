@@ -1,4 +1,5 @@
 import logging
+import pathlib
 
 from decouple import config
 from telegram.ext import CommandHandler, MessageHandler, filters
@@ -17,6 +18,8 @@ async def download_video(update: Update, context):
         data = download(url)
         with open(data["filename"], "rb") as video:
             await update.message.reply_video(video, quote=True)
+
+        pathlib.Path(data["filename"]).unlink()
 
 
 def main(token, debug=False, port=80, webhook_url=""):
