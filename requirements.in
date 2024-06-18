@@ -1,3 +1,5 @@
-youtube-dl
+yt-dlp
 python-decouple
-python-telegram-bot
+python-telegram-bot[webhooks]
+urllib3==1.26.17
+
