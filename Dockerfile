@@ -12,4 +12,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 EXPOSE 3000
-CMD ["python", "bot.py"]
+CMD ["./main.py"]
