@@ -8,7 +8,7 @@ anyio==4.4.0
     # via httpx
 brotli==1.1.0
     # via yt-dlp
-certifi==2024.6.2
+certifi==2024.8.30
     # via
     #   httpcore
     #   httpx
@@ -20,9 +20,9 @@ h11==0.14.0
     # via httpcore
 httpcore==1.0.5
     # via httpx
-httpx==0.27.0
+httpx==0.27.2
     # via python-telegram-bot
-idna==3.7
+idna==3.8
     # via
     #   anyio
     #   httpx
@@ -31,9 +31,7 @@ mutagen==1.47.0
     # via yt-dlp
 pycryptodomex==3.20.0
     # via yt-dlp
-python-decouple==3.8
-    # via -r requirements.in
-python-telegram-bot[webhooks]==21.3
+python-telegram-bot[webhooks]==21.4
     # via -r requirements.in
 requests==2.32.3
     # via yt-dlp
@@ -48,7 +46,7 @@ urllib3==1.26.17
     #   -r requirements.in
     #   requests
     #   yt-dlp
-websockets==12.0
+websockets==13.0.1
     # via yt-dlp
-yt-dlp==2024.5.27
+yt-dlp==2024.8.6
     # via -r requirements.in
