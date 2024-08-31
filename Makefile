@@ -1,9 +1,12 @@
 IMAGE ?= vidhoarder
 
-.PHONY: build run upgrade
+.PHONY: build clean run upgrade
 
 build:
 	@docker build -t $(IMAGE):latest .
+
+clean:
+	docker rm -f $(IMAGE) || true
 
 run:
 	@docker run -d --restart unless-stopped --env-file=./.env --name $(IMAGE) $(IMAGE):latest
