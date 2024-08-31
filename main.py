@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 import logging
+import os
 import pathlib
 
-from decouple import config
 from telegram import MessageEntity, Update
 from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters
 from yt_dlp import YoutubeDL
@@ -37,24 +37,16 @@ async def handler(update: Update, context):
         pathlib.Path(data["filename"]).unlink()
 
 
-def main(token, debug=False, port=80, webhook_url=""):
+def main(token: str):
     app = ApplicationBuilder().token(token).build()
 
     app.add_handler(CommandHandler("download", handler))
     app.add_handler(MessageHandler(filters.Entity(MessageEntity.URL), handler))
 
-    if debug or not webhook_url:
-        app.run_polling()
-    else:
-        url = "/".join([webhook_url.strip("/"), token])
-        logger.debug(f"{url=}")
-        app.start_webhook(listen="0.0.0.0", port=port, url_path=token, webhook_url=url)
+    app.run_polling()
 
 
 if __name__ == "__main__":
-    kwargs = dict(
-        debug=config("DEBUG", default=False, cast=bool),
-        port=config("PORT", default=3000, cast=int),
-        webhook_url=config("WEBHOOK_URL", default=""),
-    )
-    main(token=config("TOKEN"), **kwargs)
+    if not (token := os.environ.get("TOKEN")):
+        logger.error("TOKEN is not set")
+    main(token=token)
