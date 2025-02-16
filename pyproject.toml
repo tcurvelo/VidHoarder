@@ -1,0 +1,10 @@
+[project]
+name = "vidhoarder"
+version = "0.1.0"
+description = "Telegram bot for downloading social media videos."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "python-telegram-bot[webhooks]>=21.10",
+    "yt-dlp>=2025.1.26",
+]

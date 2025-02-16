@@ -12,4 +12,4 @@ run:
 	@docker run -d --restart unless-stopped --env-file=./.env --name $(IMAGE) $(IMAGE):latest
 
 upgrade:
-	@which pip-compile > /dev/null && pip-compile -U || echo "pip-tools not installed"
+	@command uv --version >/dev/null 2>&1 && uv lock -U || echo "uv not installed"
