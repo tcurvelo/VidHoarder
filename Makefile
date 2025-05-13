@@ -3,7 +3,7 @@ IMAGE ?= vidhoarder
 .PHONY: build clean run upgrade
 
 build:
-	@docker build -t $(IMAGE):latest .
+	@docker build  --target=prod -t $(IMAGE):latest .
 
 clean:
 	docker rm -f $(IMAGE) || true
