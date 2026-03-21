@@ -14,7 +14,7 @@ def download(url: str):
     data = {}
 
     def hook(p):
-        data["filename"] = f'{p["info_dict"]["id"]}.{p["info_dict"]["ext"]}'
+        data["filename"] = f"{p['info_dict']['id']}.{p['info_dict']['ext']}"
 
     params = {"postprocessor_hooks": [hook], "outtmpl": "%(id)s.%(ext)s"}
     with YoutubeDL(params=params) as ydl:

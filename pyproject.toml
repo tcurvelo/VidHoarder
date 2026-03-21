@@ -8,3 +8,8 @@ dependencies = [
     "python-telegram-bot[webhooks]>=21.10",
     "yt-dlp>=2025.1.26",
 ]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.7",
+]
