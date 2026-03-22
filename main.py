@@ -17,6 +17,8 @@ def download(url: str):
         data["filename"] = f"{p['info_dict']['id']}.{p['info_dict']['ext']}"
 
     params = {"postprocessor_hooks": [hook], "outtmpl": "%(id)s.%(ext)s"}
+    if pathlib.Path("cookies.txt").exists():
+        params["cookiefile"] = "cookies.txt"
     with YoutubeDL(params=params) as ydl:
         data["retcode"] = ydl.download([url])
 
