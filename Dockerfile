@@ -9,7 +9,6 @@ RUN apt-get -y install  \
     ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
-EXPOSE 3000
 
 RUN --mount=type=cache,target=/root/.cache/uv \
 --mount=type=bind,source=uv.lock,target=uv.lock \
@@ -18,6 +17,8 @@ uv sync --frozen --no-install-project
 
 FROM python:3.12-slim AS prod
 
+WORKDIR /app
+EXPOSE 3000
 ENV PATH=/app/.venv/bin:$PATH
 
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/
